@@ -12,9 +12,12 @@ export const EditableSpan: FC<EditableSpanPropsType> = (props) => {
     let [title, setTitle] = useState<string>(props.title)
     const onEditMode = () => {
         setIsEditMode(true)
-        setTitle(props.title)
+        //setTitle(props.title)
     }
-    const offEditMode = () => setIsEditMode(false)
+    const offEditMode = () => {
+        props.changeTitle(title)
+        setIsEditMode(false)
+    }
     const changeItemTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
     return (
         isEditMode
