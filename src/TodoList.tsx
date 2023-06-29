@@ -5,6 +5,7 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import {AddItemForm} from "./AddItemForm";
+import {EditableSpan} from "./EditableSpan";
 
 type TodoListPropsType = {
     todoListId: string
@@ -16,6 +17,7 @@ type TodoListPropsType = {
     removeTodoList: (todoListId: string) => void
     changeFilter: (nextFilterValue: FilterValuesType, todoListId: string) => void
     changeTaskStatus: (taskId: string, newIsDoneValue: boolean, todoListId: string) => void
+    changeTaskTitle: (taskId: string, title: string, todoListId: string) => void
 }
 
 export type TaskType = {
@@ -33,6 +35,10 @@ const TodoList: FC<TodoListPropsType> = (props) => {
                     const removeTask = () => props.removeTask(task.id, props.todoListId)
                     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) =>
                         props.changeTaskStatus(task.id, e.currentTarget.checked, props.todoListId)
+                    const changeTaskTitle = (title: string) => {
+                        props.changeTaskTitle(task.id, title, props.todoListId)
+                    }
+
                     return (
                         <li key={task.id} className={"tasks-list-item"}>
                             <div>
@@ -41,8 +47,11 @@ const TodoList: FC<TodoListPropsType> = (props) => {
                                     checked={task.isDone}
                                     onChange={changeTaskStatus}
                                 />
-                                <span className={task.isDone ? "task-done" : "task"}>{task.title}</span>
-                                <
+                                {/*<span className={task.isDone ? "task-done" : "task"}>{task.title}</span>*/}
+                                <EditableSpan changeTitle={changeTaskTitle}
+                                              classes={task.isDone ? "task-done" : "task"}
+                                              title={task.title}
+                                />
                             </div>
                             <button onClick={removeTask}>x</button>
                         </li>

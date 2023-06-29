@@ -100,7 +100,6 @@ function App(): JSX.Element {
         setTodoLists(updatedTodoLists)
     }
 
-
     const maxTodoListTitleLength = 15
     const getFilteredTasks =
         (allTasks: Array<TaskType>, currentFilterValue: FilterValuesType): Array<TaskType> => {
@@ -127,6 +126,7 @@ function App(): JSX.Element {
                 removeTodoList={removeTodoList}
                 changeFilter={changeTodoListFilter}
                 changeTaskStatus={changeTaskStatus}
+                changeTaskTitle={changeTaskTitle}
             />
         );
     })
